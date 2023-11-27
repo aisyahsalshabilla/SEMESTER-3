@@ -101,7 +101,7 @@ $jumlahProduk = mysqli_num_rows($queryProduk);
                         <div class="col-6 text-white">
                             <h3 class="fs-2">Laporan</h3>
                             <p class="fs-4"><?php echo $jumlahProduk; ?> Laporan</p>
-                            <p><a href="produk.php" class="text-white no-decoration">Lihat Detail</a></p>
+                            <p><a href="laporan.php" class="text-white no-decoration">Lihat Detail</a></p>
                         </div>
                     </div>
                 </div>
