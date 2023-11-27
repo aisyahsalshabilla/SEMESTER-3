@@ -2,22 +2,8 @@
 require "session.php";
 require "koneksi.php";
 
-$query = mysqli_query($con, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id=b.id_kategori");
-$jumlahProduk = mysqli_num_rows($query);
-
 $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
-
-$generateRandomString = function($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, strlen($characters) - 1)];
-    }
-
-    return $randomString;
-};
+$jumlahKategori = mysqli_num_rows($queryKategori);
 
 ?>
 
@@ -26,189 +12,127 @@ $generateRandomString = function($length = 10) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Produk</title>
+    <title>Kategori</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
-
 </head>
 
 <style>
     .no-decoration{
         text-decoration: none;
     }
-
-    form div{
-        margin-bottom: 10px;
-    }
-</style> 
-
+</style>
 <body>
-    <?php require "navbar.php"; ?>
+    <?php require"navbar.php"; ?>
+    <div class="container mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="../adminpanel" class="no-decoration text-muted">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Laporan
+                </li>
+            </ol>
+        </nav>
 
- 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+        <div class="my-5 col-12 col-md-6">
+            <h3>Tambah Laporan</h3>
 
-        
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <form action="" method="post">
+                <div>
+                    <label for="laporan">Laporan</label>
+                    <input type="text" id="laporan" name="laporan" placeholder="input nama laporan" class="form-control">
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary" type="submit" name="simpan_laporan">Simpan</button>
+                </div>
+            </form>
 
-            <!-- Main Content -->
-            <div id="content">
+            <?php
+                if(isset($_POST['simpan_laporan'])){
+                    $laporan = htmlspecialchars($_POST['laporan']);
 
+                    $queryExist = mysqli_query($con, "SELECT nama FROM laporan WHERE nama='$laporan'");
+                    $jumlahDataKategoriBaru = mysqli_num_rows($queryExist);
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Tabel Kelas (Golongan)</h1>
-                    
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                           <a href="tambahkelas.php" class="btn btn-primary">Tambah Data</a>
+                    if($jumlahDataKategoriBaru > 0){
+                        ?>
+                        <div class="alert alert-warning mt-3" role="alert">
+                            Kategori Sudah Ada
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>ID Kelas</th>
-                                            <th>Nama Kelas(Golongan)</th>
-                                            <th>Opsi</th>  
-                                        </tr>
-                                        <?php
-                                        include 'koneksi.php';
-                                        $data = mysqli_query($koneksi, "SELECT * FROM kelas");
-                                        while($d = mysqli_fetch_array($data)) {
-                                            ?>
-                                        
-                                        <tr>
-                                            <th><?php echo $d['id_kelas']; ?></th>
-                                            <th><?php echo $d['nama_kelas']; ?></th>
-                                            <th>
-                                                <a href="#" class="btn btn-success">Edit</a>
-                                                <a href="#" class="btn btn-danger">Hapus</a>
-                                            </th>
-                                        </tr>
-                                        <?php
-                                    }?>
-
-                                    </thead>
-                                    
-                                       
-                                    </tbody>
-                                </table>
+                        <?php
+                    }
+                    else{
+                        $querySimpan = mysqli_query($con, "INSERT INTO laporan (nama) VALUES ('$laporan')");
+                        
+                        if($querySimpan){
+                            ?>
+                            <div class="alert alert-primary mt-3" role="alert">
+                                Laporan Berhasil Disimpan
                             </div>
-                        </div>
-                    </div>
 
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+                            <meta http-equiv="refresh" content="1; url=kategori.php" />
+                            <?php
+                            
+                        }
+                        else{
+                            echo mysqli_error($con);
+                        }
+                    }
+                }
+            ?>
         </div>
-        <!-- End of Content Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
+        <div class="mt-3">
+            <h2>List Laporan</h2>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+            <div class="table-responsive mt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            if($jumlahLaporan==0){
+                        ?>
+                            <tr>
+                                <td colspan=3 class="text-center">Data laporan tidak ditemukan</td>
+                            </tr>
+                        <?php
+                            }
+                            else{
+                                $jumlah = 1;
+                                while($data=mysqli_fetch_array($queryLaporan)){
+                        ?>
+                                    <tr>
+                                        <td><?php echo $jumlah; ?></td>
+                                        <td><?php echo $data['nama']; ?></td> 
+                                        <td>
+                                            <a href="laporan-detail.php?id=<?php echo $data['id_laporan']; ?>" class="btn btn-info">
+                                            <i class="fas fa-search"></i></a>
+                                        </td>
+                                    </tr>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-                    
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; mifinter'22</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
+                        <?php
+                                $jumlah++;
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    
+    <script src="../bootstrap/js/bootstrap.bundel.min.js"></script>
+    <script src="../fontawesome/js/all.min.js"></script>
 
 </body>
-
-</html>
 </html>

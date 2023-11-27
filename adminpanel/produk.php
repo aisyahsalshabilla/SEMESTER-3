@@ -2,22 +2,8 @@
 require "session.php";
 require "koneksi.php";
 
-$query = mysqli_query($con, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id=b.id_kategori");
-$jumlahProduk = mysqli_num_rows($query);
-
 $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
-
-$generateRandomString = function($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, strlen($characters) - 1)];
-    }
-
-    return $randomString;
-};
+$jumlahKategori = mysqli_num_rows($queryKategori);
 
 ?>
 
@@ -26,25 +12,18 @@ $generateRandomString = function($length = 10) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Produk</title>
+    <title>Kategori</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
-
 </head>
 
 <style>
     .no-decoration{
         text-decoration: none;
     }
-
-    form div{
-        margin-bottom: 10px;
-    }
-</style> 
-
+</style>
 <body>
-    <?php require "navbar.php"; ?>
-
+    <?php require"navbar.php"; ?>
     <div class="container mt-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -58,6 +37,7 @@ $generateRandomString = function($length = 10) {
                 </li>
             </ol>
         </nav>
+
         
         <!-- tambah produk -->
         <div class="my-5 col-12 col-md-6">
