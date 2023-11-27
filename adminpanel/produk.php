@@ -2,8 +2,22 @@
 require "session.php";
 require "koneksi.php";
 
+$query = mysqli_query($con, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id=b.id_kategori");
+$jumlahProduk = mysqli_num_rows($query);
+
 $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
-$jumlahKategori = mysqli_num_rows($queryKategori);
+
+$generateRandomString = function($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+
+    return $randomString;
+};
 
 ?>
 
@@ -12,18 +26,20 @@ $jumlahKategori = mysqli_num_rows($queryKategori);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>produk</title>
+    <title>Halaman Produk</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
+
 </head>
 
 <style>
     .no-decoration{
         text-decoration: none;
     }
-</style>
+</style> 
+
 <body>
-    <?php require"navbar.php"; ?>
+    <?php require "navbar.php"; ?>
     <div class="container mt-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -37,7 +53,6 @@ $jumlahKategori = mysqli_num_rows($queryKategori);
                 </li>
             </ol>
         </nav>
-
         
         <!-- tambah produk -->
         <div class="my-5 col-12 col-md-6">
@@ -128,7 +143,7 @@ $jumlahKategori = mysqli_num_rows($queryKategori);
             <?php
                             } else {
                                 // Pengecekan tipe file
-                                $allowed_types = array('jpg', 'jpeg' ,'png', 'gif');
+                                $allowed_types = array('jpg', 'png', 'gif');
                                 if (!in_array($imageFileType, $allowed_types)) {
                                     // Pesan kesalahan jika tipe file tidak diizinkan
             ?>
