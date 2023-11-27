@@ -106,8 +106,9 @@ $generateRandomString = function($length = 10) {
                     </select>
                 </div>
 
-                <div>
+                <div class="d-flex justify-content-betwen">
                     <button type="submit" class="btn btn-primary" name="update">Update</button>
+                    <button type="submit" class="btn btn-primary" name="hapus">hapus</button>
                 </div>
             </form>
 
@@ -178,6 +179,20 @@ $generateRandomString = function($length = 10) {
                         }
                     }
                 }
+                if (isset($_POST['hapus'])){
+                    $queryDelete = mysqli_query($con, "DELETE FROM produk WHERE id_produk='$id'");
+ 
+                    if($queryDelete){
+                        
+                    ?>
+                    <div class="alert alert-primary mt-3" role="alert">
+                            produk Berhasil Dihapus
+                    </div>
+
+                    <meta http-equiv="refresh" content="1; url=produk.php" />
+                <?php
+                }
+            }
             ?>
 
         </div> 
