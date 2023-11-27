@@ -12,7 +12,7 @@
           <a class="nav-link" href="kategori.php">Kategori</a>
         </li>
         <li class="nav-item me-4">
-          <a class="nav-link" href="produk.php">Produk</a>
+          <a class="nav-link" href="produk.php">produk</a>
         </li>
         <li class="nav-item me-4">
           <a class="nav-link" href="laporan.php">Laporan</a>
