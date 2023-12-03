@@ -14,7 +14,7 @@
           <img src="<?= $main_url ?>asset/image/<?= userLogin()['foto']?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?= 'MIF Inter2' ?></a>
+          <a href="#" class="d-block"><?= 'MIF Inter1' ?></a>
         </div>
       </div>
 
