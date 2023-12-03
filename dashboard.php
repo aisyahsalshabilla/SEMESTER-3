@@ -152,7 +152,7 @@ $barangNum = count($barang);
               </div>
 
               <div>
-              <iframe title="nyoba" width="1000" height="500" src="https://app.powerbi.com/view?r=eyJrIjoiYzA4ODdmYjYtYjZiZC00NmEzLWFjYjQtNWYzOTQyNzk0NzRlIiwidCI6IjUyNjNjYzgxLTU5MTItNDJjNC1hYmMxLWQwZjFiNjY4YjUzMCIsImMiOjEwfQ%3D%3D" 
+              <iframe title="nyoba" width="1300" height="500" src="https://app.powerbi.com/view?r=eyJrIjoiZTUxMDI4MDItNzQ5NC00OTA2LWIzYjItOTU4OGQwNmFiNWJmIiwidCI6IjUyNjNjYzgxLTU5MTItNDJjNC1hYmMxLWQwZjFiNjY4YjUzMCIsImMiOjEwfQ%3D%3D" 
                 frameborder="0" allowFullScreen="true"></iframe>
               </div>
             </div>
