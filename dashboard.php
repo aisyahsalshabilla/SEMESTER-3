@@ -116,7 +116,7 @@ $barangNum = count($barang);
             <!-- ./col -->
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-6">
                 <div class="card card-outline card-danger">
                   <div class="card-header text-info">
@@ -139,8 +139,9 @@ $barangNum = count($barang);
                     </tbody>
                   </table>
                 </div>
-              </div>
-              <div class="col-lg-6">
+              </div> -->
+              
+              <!-- <div class="col-lg-6">
                 <div class="card card-outline card-success">
                   <div class="card-header text-info">
                     <h5>Omset Penjualan</h5>
@@ -149,10 +150,10 @@ $barangNum = count($barang);
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div>
-              <iframe title="nyoba" width="1300" height="500" src="https://app.powerbi.com/view?r=eyJrIjoiZTUxMDI4MDItNzQ5NC00OTA2LWIzYjItOTU4OGQwNmFiNWJmIiwidCI6IjUyNjNjYzgxLTU5MTItNDJjNC1hYmMxLWQwZjFiNjY4YjUzMCIsImMiOjEwfQ%3D%3D" 
+              <iframe title="nyoba" width="1100" height="400" src="https://app.powerbi.com/view?r=eyJrIjoiZTUxMDI4MDItNzQ5NC00OTA2LWIzYjItOTU4OGQwNmFiNWJmIiwidCI6IjUyNjNjYzgxLTU5MTItNDJjNC1hYmMxLWQwZjFiNjY4YjUzMCIsImMiOjEwfQ%3D%3D" 
                 frameborder="0" allowFullScreen="true"></iframe>
               </div>
             </div>

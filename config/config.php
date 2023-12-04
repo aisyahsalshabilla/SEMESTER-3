@@ -16,5 +16,5 @@ $koneksi = mysqli_connect($host, $user, $pass, $dbname);
 //     echo "Berhasil koneksi ke database";
 // }
 
-$main_url = 'http://localhost/SIRohand/';
+$main_url = 'http://localhost/SEMESTER-3/';
 ?>
